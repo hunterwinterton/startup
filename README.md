@@ -38,4 +38,4 @@ I will use the required technology in the following ways.
 - **Database** - Store users, galleries, photos, and links in the database.
 - **WebSocket** - Provides real time updates for analytics, new galleries and upload status.
 
-# Notes: https://github.com/hunterwinterton/startup/blob/c39576f90de4ed28a03c9ed386dad190d6c7e5c8/notes.md
+# [Notes](notes.md)
