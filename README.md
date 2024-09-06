@@ -1,7 +1,5 @@
 # Photo Galleries
 
-Notes: https://github.com/hunterwinterton/startup/blob/c39576f90de4ed28a03c9ed386dad190d6c7e5c8/notes.md
-
 ## Specification Deliverable
 
 ### Elevator Pitch
@@ -39,3 +37,5 @@ I will use the required technology in the following ways.
 - **Authentication** - Register and login users. Requires a user to be logged in to create a gallery.
 - **Database** - Store users, galleries, photos, and links in the database.
 - **WebSocket** - Provides real time updates for analytics, new galleries and upload status.
+
+# Notes: https://github.com/hunterwinterton/startup/blob/c39576f90de4ed28a03c9ed386dad190d6c7e5c8/notes.md
