@@ -13,4 +13,5 @@
 ## AWS
 
 Instance IP: http://54.85.227.177
+
 SSH Command: ssh -i ~/.ssh/production.pem ubuntu@54.85.227.177
