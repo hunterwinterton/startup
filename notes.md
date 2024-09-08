@@ -15,3 +15,7 @@
 Instance IP: http://54.85.227.177
 
 SSH Command: ssh -i ~/.ssh/production.pem ubuntu@54.85.227.177
+
+## Basic Web
+
+It's important for a website to be https so the data is secure. It uses a certificate to verify the website.
