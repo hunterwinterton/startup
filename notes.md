@@ -38,6 +38,7 @@ How to create a (unordered) list:
       ```
 
 How to create a table - each `<tr>` is a row, each `<th>` is a header, and each `<td>` is a data box. There should be an equal amount of `<th>` and `<td>`
+```html
 <table>
   <tr>
     <th>Table</th>
@@ -50,6 +51,7 @@ How to create a table - each `<tr>` is a row, each `<th>` is a header, and each 
     <td>table</td>
   </tr>
 </table>
+```
 
 A block element takes up a full line and is separated (`<div>` or `<p>`)
 An inline element stays within the same line (`<b>` or `<span>`)
