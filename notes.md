@@ -29,13 +29,13 @@ Basic HTML Example: https://codepen.io/hunterwinter11/pen/QWXPLaO
 `<img src = "https://google.com/image.png">Image</img>` How to create an image
 
 How to create a (unordered) list:
-      ```html
-      <ul>
-        <li>List</li>
-        <li>List</li>
-        <li>List</li>
-      </ul>
-      ```
+```html
+<ul>
+    <li>List</li>
+    <li>List</li>
+    <li>List</li>
+</ul>
+```
 
 How to create a table - each `<tr>` is a row, each `<th>` is a header, and each `<td>` is a data box. There should be an equal amount of `<th>` and `<td>`
 ```html
