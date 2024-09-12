@@ -25,17 +25,21 @@ It's important for a website to be https so the data is secure. It uses a certif
 Basic HTML Example: https://codepen.io/hunterwinter11/pen/QWXPLaO
 
 `<a href="https://google.com">Google</a>` How to create a hyperlink
+
 `<img src = "https://google.com/image.png">Image</img>` How to create an image
 
 How to create a (unordered) list:
-      ```<ul>
+      ```html
+      <ul>
         <li>List</li>
         <li>List</li>
         <li>List</li>
-      </ul>```
+      </ul>
+      ```
 
 How to create a table - each `<tr>` is a row, each `<th>` is a header, and each `<td>` is a data box. There should be an equal amount of `<th>` and `<td>`
-      ```<table>
+      ```html
+      <table>
         <tr>
           <th>Table</th>
           <th>Table</th>
@@ -46,7 +50,8 @@ How to create a table - each `<tr>` is a row, each `<th>` is a header, and each 
           <td>table</td>
           <td>table</td>
         </tr>
-      </table>```
+      </table>
+      ```
 
 A block element takes up a full line and is separated (`<div>` or `<p>`)
 An inline element stays within the same line (`<b>` or `<span>`)
