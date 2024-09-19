@@ -141,3 +141,39 @@ An inline element stays within the same line (`<b>` or `<span>`)
   </fieldset>
 </li>
 ```
+
+### Media
+
+#### SVG
+
+```html
+<svg
+  viewBox="0 0 300 200"
+  xmlns="http://www.w3.org/2000/svg"
+  stroke="red"
+  fill="red"
+  style="border: 1px solid #000000"
+>
+  <circle cx="150" cy="100" r="50" />
+</svg>
+```
+
+#### Canvas
+
+```html
+<canvas
+  id="canvasDemo"
+  width="300"
+  height="200"
+  style="border: 1px solid #000000"
+></canvas>
+<script>
+  const ctx = document.getElementById("canvasDemo").getContext("2d");
+  ctx.beginPath();
+  ctx.arc(150, 100, 50, 0, 2 * Math.PI);
+  ctx.fillStyle = "red";
+  ctx.strokeStyle = "red";
+  ctx.fill();
+  ctx.stroke();
+</script>
+```
