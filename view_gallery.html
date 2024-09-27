@@ -1,4 +1,4 @@
-<!-- Page where users can view galleries they have created and see analytics or edit them. User must login to access page. -->
+<!-- Page where user can view a specific gallery they have created with analytics for how many people have viewed it, or delete it. User must login to access page. -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,15 +35,30 @@
     </header>
 
     <main>
-        <h2>Your Galleries</h2>
+        <h2>Gallery Name</h2>
         <div><svg width="300" height="170">
             <rect width="150" height="150" x="10" y="10" rx="20" ry="20"
                 style="fill:white;stroke:black;stroke-width:5;opacity:0.5" />
             Sorry, your browser does not support inline SVG.
         </svg></div>
         <div>
-            <button onclick="window.location.href = 'view_gallery.html';">Open Gallery</button>
+            <button>Download Images</button>
+            <button>Delete Gallery</button>
         </div>
+        <br>
+        <h2>Analytics</h2>
+    <div>
+        <table>
+            <tr>
+                <th>Page Views</th>
+                <th>Downloads</th>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        </table>
+    </div>
     </main>
 
     <footer>

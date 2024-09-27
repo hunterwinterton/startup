@@ -38,4 +38,15 @@ I will use the required technology in the following ways.
 - **Database** - Store users, galleries, photos, and links in the database.
 - **WebSocket** - Provides real time updates for analytics, new galleries and upload status.
 
+## HTML deliverable
+
+For this deliverable I built out the structure of my application using HTML.
+
+- [x] **HTML pages** - Two HTML page that represent the ability to login and vote.
+- [x] **Links** - The login page automatically links to the voter page. The voter page contains links for every voting choice.
+- [x] **Text** - Each of the voting choices is represented by a textual description.
+- [ ] **Images** - I couldn't figure out how to include an image and so I didn't do this. 😔
+- [x] **DB/Login** - Input box and submit button for login. The voting choices represent data pulled from the database.
+- [x] **WebSocket** - The count of voting results represent the tally of realtime votes.
+
 # [Notes](notes.md)
