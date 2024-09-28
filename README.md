@@ -24,7 +24,7 @@ Have you ever wanted an easy way to upload photos and share them with your frien
 
 I will use the required technology in the following ways.
 
-- **HTML** - Four HTML pages. One for users to login or register, one for users to upload photos, one for users to view their gallery, and one for visitors to view shared galleries.
+- **HTML** - Five HTML pages. One for users to login or register, one for users to upload photos, one for users to view a single gallery, one for users to view all of their galleries, and one for visitors to view shared galleries.
 - **CSS** - Clean and professional styling responsive on mobile and desktop. Hovering and clicking on photos will produce various effects.
 - **React** - Provides login functionality, displays photos in a grid view, allows uploading multiple photos at once, and navigating through the galleries.
 - **Web Services** - Backend services will handle:
@@ -42,11 +42,11 @@ I will use the required technology in the following ways.
 
 For this deliverable I built out the structure of my application using HTML.
 
-- [x] **HTML pages** - Two HTML page that represent the ability to login and vote.
-- [x] **Links** - The login page automatically links to the voter page. The voter page contains links for every voting choice.
-- [x] **Text** - Each of the voting choices is represented by a textual description.
-- [ ] **Images** - I couldn't figure out how to include an image and so I didn't do this. 😔
-- [x] **DB/Login** - Input box and submit button for login. The voting choices represent data pulled from the database.
-- [x] **WebSocket** - The count of voting results represent the tally of realtime votes.
+- [x] **HTML pages** - Five HTML pages that allow user to login/register, upload photos, view their gallery with analytics, view all of their galleries, and where visitors view a shared gallery
+- [x] **Links** - The login page links to where the users can create a gallery. After creating a gallery, the user is redirected to a page with all of their galleries. Clicking on a gallery here will bring up an analytics page where the user can view their gallery and delete it.
+- [x] **Text** - There is text for the titles and buttons of each page, but otherwise there isn't much text.
+- [ ] **Images** - I haven't added any images yet.
+- [x] **DB/Login** - Input box and submit button for login.
+- [ ] **WebSocket** - The analytics page has a table that will show live visitors with downloads and views. I have not implemented this feature yet.
 
 # [Notes](notes.md)
