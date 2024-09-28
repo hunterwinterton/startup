@@ -177,3 +177,55 @@ An inline element stays within the same line (`<b>` or `<span>`)
   ctx.stroke();
 </script>
 ```
+
+## CSS
+
+### Flexbox
+
+Creates responsive boxes for all of the children of the element with `display: flex;`. `flex-direction` can be row or column.
+```css
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100vh;
+}
+
+header {
+  flex: 0 80px;
+  background: hsl(223, 57%, 38%);
+}
+
+footer {
+  flex: 0 30px;
+  background: hsl(180, 10%, 10%);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+```
+
+`flex: 1;` can give units to change what amount of space the flexbox takes up, as a ratio
+`flex: 0 30px;` gives the box a base height of 30px and is a fixed size box
+
+#### Media Query
+
+```css
+@media (orientation: portrait) {
+  main {
+    flex-direction: column;
+  }
+}
+
+@media (max-height: 700px) {
+  header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+}
+```
