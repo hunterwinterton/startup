@@ -213,6 +213,8 @@ main {
 
 #### Media Query
 
+Makes different elements responsive depending on the screen size or device
+
 ```css
 @media (orientation: portrait) {
   main {
