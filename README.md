@@ -45,7 +45,7 @@ For this deliverable I built out the structure of my application using HTML.
 - [x] **HTML pages** - Five HTML pages that allow user to login/register, upload photos, view their gallery with analytics, view all of their galleries, and where visitors view a shared gallery
 - [x] **Links** - The login page links to where the users can create a gallery. After creating a gallery, the user is redirected to a page with all of their galleries. Clicking on a gallery here will bring up an analytics page where the user can view their gallery and delete it.
 - [x] **Text** - There is text for the titles and buttons of each page, but otherwise there isn't much text.
-- [ ] **Images** - I haven't added any images yet. I don't think it makes sense to have images on any pages yet.
+- [x] **Images** - I added a logo to all of the pages.
 - [x] **DB/Login** - Input box and submit button for login.
 - [ ] **WebSocket** - The analytics page has a table that will show live visitors with downloads and views. I have not implemented this feature yet.
 
