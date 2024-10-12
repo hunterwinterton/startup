@@ -14,3 +14,13 @@
 			    align-items: center;
 			    overflow: hidden;
 			}
+
+            .btn-primary {
+                background-color: #5AD2F4 !important;
+                border-color:#5AD2F4 !important;
+            }
+
+            .btn-secondary {
+                background-color: #5D5E60 !important;
+                border-color:#5D5E60 !important;
+            }
