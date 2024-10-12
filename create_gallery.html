@@ -70,7 +70,7 @@
 			<div class="card shadow p-4" style="max-width: 600px; width: 100%">
 				<h2 class="text-center mb-4">Create a New Gallery</h2>
 				<form method="get" action="view_galleries.html">
-					<div>
+					<div class="mb-3">
 						<label for="galleryName" class="form-label">Gallery Name</label>
 						<input
 							type="text"
@@ -80,7 +80,15 @@
 							required
 						/>
 					</div>
-					<button type="file">Upload Photos</button>
+					<div class="mb-3">
+						<label for="uploadPhotos" class="form-label">Upload Photos</label>
+						<input
+							type="file"
+							id="uploadPhotos"
+							class="form-control"
+							multiple
+						/>
+					</div>
 					<button type="submit">Create</button>
 				</form>
 			</div>
