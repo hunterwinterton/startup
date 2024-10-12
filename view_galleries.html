@@ -52,12 +52,26 @@
 		<main class="container my-5">
 			<h2 class="text-center mb-4">Your Galleries</h2>
 			<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-
-			</div>
-			<div>
-				<button onclick="window.location.href = 'view_gallery.html';">
-					Open Gallery
-				</button>
+				<div class="col">
+					<div
+						class="card shadow-sm"
+						style="
+							width: 100%;
+							aspect-ratio: 1;
+							overflow: hidden;
+							cursor: pointer;
+						"
+					>
+						<a href="view_gallery.html" style="text-decoration: none">
+							<img
+								src="sample-img.jpg"
+								class="card-img-top"
+								alt="Gallery Image"
+							/>
+						</a>
+					</div>
+				</div>
+				<!-- Repeat the above "col" div for each gallery -->
 			</div>
 		</main>
 
