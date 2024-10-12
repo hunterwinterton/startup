@@ -17,24 +17,7 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 		<link rel="manifest" href="/site.webmanifest" />
-		<style>
-			body,
-			html {
-				height: 100%;
-				margin: 0;
-				display: flex;
-				flex-direction: column;
-				overflow: hidden;
-			}
-
-			main {
-				flex: 1;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				overflow: hidden;
-			}
-		</style>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<!-- Use header, main, and footer elements to give semantic structure -->
@@ -66,32 +49,41 @@
 			<!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
 		</header>
 
-    <main>
-        <h2>Gallery Name</h2>
-        <div><svg width="300" height="170">
-            <rect width="150" height="150" x="10" y="10" rx="20" ry="20"
-                style="fill:white;stroke:black;stroke-width:5;opacity:0.5" />
-            Sorry, your browser does not support inline SVG.
-        </svg></div>
-        <div>
-            <button>Download Images</button>
-            <button>Delete Gallery</button>
-        </div>
-        <br>
-        <h2>Analytics</h2>
-    <div>
-        <table>
-            <tr>
-                <th>Page Views</th>
-                <th>Downloads</th>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-        </table>
-    </div>
-    </main>
+		<main>
+			<h2>Gallery Name</h2>
+			<div>
+				<svg width="300" height="170">
+					<rect
+						width="150"
+						height="150"
+						x="10"
+						y="10"
+						rx="20"
+						ry="20"
+						style="fill: white; stroke: black; stroke-width: 5; opacity: 0.5"
+					/>
+					Sorry, your browser does not support inline SVG.
+				</svg>
+			</div>
+			<div>
+				<button>Download Images</button>
+				<button>Delete Gallery</button>
+			</div>
+			<br />
+			<h2>Analytics</h2>
+			<div>
+				<table>
+					<tr>
+						<th>Page Views</th>
+						<th>Downloads</th>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+					</tr>
+				</table>
+			</div>
+		</main>
 
 		<footer class="sticky-bottom bg-light p-1 mt-4">
 			<div
