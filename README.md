@@ -49,4 +49,15 @@ For this deliverable I built out the structure of my application using HTML.
 - [x] **DB/Login** - Input box and submit button for login.
 - [ ] **WebSocket** - The analytics page has a table that will show live visitors with downloads and views. I have not implemented this feature yet.
 
+## CSS deliverable
+
+For this deliverable I styled my website using CSS.
+
+- [x] **Header, footer, and main content body**
+- [x] **Navigation elements** - I dropped the underlines and changed the color for anchor elements.
+- [x] **Responsive to window resizing** - Most pages of my website are responsive, I have one that is mostly responsive but could still use some work.
+- [x] **Application elements** - I made sure to align things properly and leave plenty of white space.
+- [x] **Application text content** - I am using consistent fonts across all pages of my website.
+- [x] **Application images** - I made the images in my app look good with rounded corners.
+
 # [Notes](notes.md)
