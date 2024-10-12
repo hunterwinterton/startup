@@ -67,15 +67,24 @@
 		</header>
 
 		<main>
-			<h2>New Gallery</h2>
-			<form method="get" action="view_galleries.html">
-				<div>
-					<input type="text" placeholder="Gallery Name" />
-				</div>
-				<button type="file">Upload Photos</button>
-				<button type="submit">Create</button>
-			</form>
-			<br />
+			<div class="card shadow p-4" style="max-width: 600px; width: 100%">
+				<h2 class="text-center mb-4">Create a New Gallery</h2>
+				<form method="get" action="view_galleries.html">
+					<div>
+						<label for="galleryName" class="form-label">Gallery Name</label>
+						<input
+							type="text"
+							id="galleryName"
+							class="form-control"
+							placeholder="Enter Gallery Name"
+							required
+						/>
+					</div>
+					<button type="file">Upload Photos</button>
+					<button type="submit">Create</button>
+				</form>
+			</div>
+			<!-- <br /> -->
 		</main>
 
 		<footer class="sticky-bottom bg-light p-1 mt-4">
