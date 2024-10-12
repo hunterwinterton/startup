@@ -24,26 +24,3 @@
                 background-color: #5D5E60 !important;
                 border-color:#5D5E60 !important;
             }
-
-                        /* styles.css */
-                        .card {
-                            border: none;
-                            /* Remove the default card border */
-                            transition: transform 0.2s;
-                            /* Add a smooth hover effect */
-                            position: relative;
-                        }
-            
-                        .card:hover {
-                            transform: scale(1.03);
-                            /* Slightly enlarge the card on hover */
-                        }
-            
-                        .card-img-top {
-                            height: 100%;
-                            /* Make the image fill the card */
-                            width: 100%;
-                            /* Ensure the image fits the card's width */
-                            object-fit: cover;
-                            /* Maintain image aspect ratio while filling the card */
-                        }
