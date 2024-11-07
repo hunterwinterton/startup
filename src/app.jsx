@@ -4,12 +4,12 @@ import "./app.css";
 
 export default function App() {
 	return (
-		<div className="body bg-dark text-light">
+		<>
 			<header className="sticky-top bg-light p-3">
 				<div className="d-flex align-items-center">
 					<div className="d-flex align-items-center">
 						<img className="me-2" src="logo.png" width="50em" />
-						<h1 className="mb-0">
+						<h1 className="mb-0 text-gray">
 							Photo Galleries<sup>&reg;</sup>
 						</h1>
 					</div>
@@ -62,6 +62,6 @@ export default function App() {
 					</nav>
 				</div>
 			</footer>
-		</div>
+		</>
 	);
 }
