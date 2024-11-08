@@ -1,10 +1,16 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import { Login } from "./login/login";
+import { Create_Gallery } from "./create_gallery/create_gallery";
+import { Public_Gallery } from "./public_gallery/public_gallery";
+import { View_Galleries } from "./view_galleries/view_galleries";
+import { View_Gallery } from "./view_gallery/view_gallery";
 
 export default function App() {
 	return (
-		<>
+		<BrowserRouter>
 			<header className="sticky-top bg-light p-3">
 				<div className="d-flex align-items-center">
 					<div className="d-flex align-items-center">
@@ -17,19 +23,19 @@ export default function App() {
 					<nav className="navbar navbar-expand-lg bg-light ms-4">
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 							<li className="nav-item fs-4">
-								<a className="nav-link" href="index.html">
+								<NavLink className="nav-link" to="index.html">
 									Home
-								</a>
+								</NavLink>
 							</li>
 							<li className="nav-item fs-4">
-								<a className="nav-link" href="create_gallery.html">
+								<NavLink className="nav-link" to="create_gallery.html">
 									Create Gallery
-								</a>
+								</NavLink>
 							</li>
 							<li className="nav-item fs-4">
-								<a className="nav-link" href="view_galleries.html">
+								<NavLink className="nav-link" to="view_galleries.html">
 									View Galleries
-								</a>
+								</NavLink>
 							</li>
 						</ul>
 					</nav>
@@ -65,6 +71,6 @@ export default function App() {
 					</nav>
 				</div>
 			</footer>
-		</>
+		</BrowserRouter>
 	);
 }
