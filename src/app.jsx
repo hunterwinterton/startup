@@ -23,17 +23,17 @@ export default function App() {
 					<nav className="navbar navbar-expand-lg bg-light ms-4">
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 							<li className="nav-item fs-4">
-								<NavLink className="nav-link" to="index.html">
+								<NavLink className="nav-link" to="">
 									Home
 								</NavLink>
 							</li>
 							<li className="nav-item fs-4">
-								<NavLink className="nav-link" to="create_gallery.html">
+								<NavLink className="nav-link" to="create">
 									Create Gallery
 								</NavLink>
 							</li>
 							<li className="nav-item fs-4">
-								<NavLink className="nav-link" to="view_galleries.html">
+								<NavLink className="nav-link" to="all">
 									View Galleries
 								</NavLink>
 							</li>
@@ -42,7 +42,14 @@ export default function App() {
 				</div>
 			</header>
 
-			<main>App components go here</main>
+			<Routes>
+				<Route path="/" element={<Login />} exact />
+				<Route path="/public" element={<Public_Gallery />} />
+				<Route path="/all" element={<View_Galleries />} />
+				<Route path="/view" element={<View_Gallery />} />
+				<Route path="/create" element={<Create_Gallery />} />
+				<Route path="*" element={<NotFound />} />
+			</Routes>
 
 			<footer className="sticky-bottom bg-light p-1 mt-4">
 				<div className="d-flex flex-column flex-lg-row align-items-center justify-content-start">
@@ -72,5 +79,13 @@ export default function App() {
 				</div>
 			</footer>
 		</BrowserRouter>
+	);
+}
+
+function NotFound() {
+	return (
+		<main className="container-fluid bg-secondary text-center">
+			404: Return to sender. Address unknown.
+		</main>
 	);
 }
