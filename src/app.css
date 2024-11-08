@@ -1,5 +1,6 @@
 			body,
-			html {
+			html,
+			#root {
 			    height: 100%;
 			    margin: 0;
 			    display: flex;
@@ -24,3 +25,4 @@
                 background-color: #5D5E60 !important;
                 border-color:#5D5E60 !important;
             }
+			

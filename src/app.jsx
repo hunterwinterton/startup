@@ -54,7 +54,10 @@ export default function App() {
 								</a>
 							</li>
 							<li className="nav-item">
-								<a href="https://www.hunterwinterton.com" className="nav-link fs-5">
+								<a
+									href="https://www.hunterwinterton.com"
+									className="nav-link fs-5"
+								>
 									Website
 								</a>
 							</li>
