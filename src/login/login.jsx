@@ -9,7 +9,7 @@ export function Login() {
 					style={{ maxWidth: "400px", width: "100%" }}
 				>
 					<h2 className="text-center mb-4">Login to Create a Gallery</h2>
-					<form method="get" action="create_gallery.html">
+					<form method="get" action="/create">
 						<div className="mb-3">
 							<label htmlFor="email" className="form-label">
 								Email
