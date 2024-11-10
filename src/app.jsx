@@ -7,8 +7,17 @@ import { Create_Gallery } from "./create_gallery/create_gallery";
 import { Public_Gallery } from "./public_gallery/public_gallery";
 import { View_Galleries } from "./view_galleries/view_galleries";
 import { View_Gallery } from "./view_gallery/view_gallery";
+import { AuthState } from "./login/authState";
 
-export default function App() {
+function App() {
+      const [userName, setUserName] = React.useState(
+				localStorage.getItem("userName") || ""
+			);
+			const currentAuthState = userName
+				? AuthState.Authenticated
+				: AuthState.Unauthenticated;
+			const [authState, setAuthState] = React.useState(currentAuthState);
+
 	return (
 		<BrowserRouter>
 			<header className="sticky-top bg-light p-3">
@@ -27,23 +36,40 @@ export default function App() {
 									Home
 								</NavLink>
 							</li>
-							<li className="nav-item fs-4">
-								<NavLink className="nav-link" to="create">
-									Create Gallery
-								</NavLink>
-							</li>
-							<li className="nav-item fs-4">
-								<NavLink className="nav-link" to="all">
-									View Galleries
-								</NavLink>
-							</li>
+							{authState === AuthState.Authenticated && (
+								<li className="nav-item fs-4">
+									<NavLink className="nav-link" to="create">
+										Create Gallery
+									</NavLink>
+								</li>
+							)}
+							{authState === AuthState.Authenticated && (
+								<li className="nav-item fs-4">
+									<NavLink className="nav-link" to="all">
+										View Galleries
+									</NavLink>
+								</li>
+							)}
 						</ul>
 					</nav>
 				</div>
 			</header>
 
 			<Routes>
-				<Route path="/" element={<Login />} exact />
+				<Route
+					path="/"
+					element={
+						<Login
+							userName={userName}
+							authState={authState}
+							onAuthChange={(userName, authState) => {
+								setAuthState(authState);
+								setUserName(userName);
+							}}
+						/>
+					}
+					exact
+				/>
 				<Route path="/public" element={<Public_Gallery />} />
 				<Route path="/all" element={<View_Galleries />} />
 				<Route path="/view" element={<View_Gallery />} />
@@ -89,3 +115,5 @@ function NotFound() {
 		</main>
 	);
 }
+
+export default App;
