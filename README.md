@@ -60,4 +60,14 @@ For this deliverable I styled my website using CSS.
 - [x] **Application text content** - I am using consistent fonts across all pages of my website.
 - [x] **Application images** - I made the images in my app look good with rounded corners.
 
+## React deliverable
+
+For this deliverable I converted my website to use React for flexibility. I also added placeholders for future technology.
+
+- [x] **Bundled and transpiled** - done!
+- [x] **Components** - Login, creating a gallery, viewing all galleries, viewing a specific gallery, and a public view of a gallery have been added as components.
+  - [x] **login** - When you press enter or the login button it takes you to the create a gallery page.
+  - [x] **database** - Stores whether or not the user is currently logged in, currently in local storage.
+- [x] **Router** - Routing between login and gallery components.
+
 # [Notes](notes.md)
