@@ -25,6 +25,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   } else {
     const user = { email: req.body.email, password: req.body.password, token: uuid.v4() };
     users[user.email] = user;
+    galleries[email] = [];
 
     res.send({ token: user.token });
   }
@@ -50,4 +51,25 @@ apiRouter.delete('/auth/logout', (req, res) => {
     delete user.token;
   }
   res.status(204).end();
+});
+
+// GetGalleries get all galleries for a user
+apiRouter.get('/galleries', (req, res) => {
+  const user = Object.values(users).find((u) => u.token === req.headers.authorization);
+  if (user) {
+    res.send(galleries[user.email]);
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+});
+
+// PostGallery create a new gallery for a user
+apiRouter.post('/galleries', (req, res) => {
+  const user = Object.values(users).find((u) => u.token === req.headers.authorization);
+  if (user) {
+    galleries[user.email].push({ name: req.body.name, id: uuid.v4() });
+    res.status(201).end();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
 });

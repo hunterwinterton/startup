@@ -5,7 +5,7 @@ export function Create_Gallery() {
 		<main className="d-flex justify-content-center align-items-center vh-100">
 			<div className="card p-4 shadow-lg" style={{ maxWidth: '400px', width: '100%' }}>
 				<h2 className="text-center mb-4">Create a New Gallery</h2>
-				<form method="get" action="view_galleries.html">
+				<form method="get" action="/view">
 					<div className="mb-3">
 						<label htmlFor="galleryName" className="form-label">
 							Gallery Name
