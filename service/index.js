@@ -101,3 +101,27 @@ apiRouter.get("/galleries/check-name", (req, res) => {
 	}
 	res.status(200).send({ msg: "Gallery name is available" });
 });
+
+// GetGallery get a specific gallery for a user
+apiRouter.get('/galleries/:id', (req, res) => {
+  const user = Object.values(users).find(
+    (u) => u.token === req.headers.authorization
+  );
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
+
+  const galleryId = req.params.id;
+  if (galleries[user.email]) {
+    const gallery = galleries[user.email].find(
+      (g) => g.id === galleryId
+    );
+    if (gallery) {
+      return res.status(200).send(gallery);
+    } else {
+      return res.status(404).send({ msg: 'Gallery not found' });
+    }
+  } else {
+    return res.status(404).send({ msg: 'No galleries found for the user' });
+  }
+});

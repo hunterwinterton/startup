@@ -72,7 +72,7 @@ function App() {
 				/>
 				<Route path="/public" element={<Public_Gallery />} />
 				<Route path="/all" element={<View_Galleries />} />
-				<Route path="/view" element={<View_Gallery />} />
+				<Route path="/view/:galleryId" element={<View_Gallery />} />
 				<Route path="/create" element={<Create_Gallery />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
