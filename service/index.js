@@ -26,7 +26,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   } else {
     const user = { email: req.body.email, password: req.body.password, token: uuid.v4() };
     users[user.email] = user;
-    galleries[email] = [];
+    galleries[user.email] = [];
 
     res.send({ token: user.token });
   }
@@ -58,7 +58,7 @@ apiRouter.delete('/auth/logout', (req, res) => {
 apiRouter.get('/galleries', (req, res) => {
   const user = Object.values(users).find((u) => u.token === req.headers.authorization);
   if (user) {
-    res.send(galleries[user.email]);
+    res.send(galleries[user.email] || []);
   } else {
     res.status(401).send({ msg: 'Unauthorized' });
   }
@@ -66,11 +66,17 @@ apiRouter.get('/galleries', (req, res) => {
 
 // PostGallery create a new gallery for a user
 apiRouter.post('/galleries', (req, res) => {
-  const user = Object.values(users).find((u) => u.token === req.headers.authorization);
-  if (user) {
-    galleries[user.email].push({ name: req.body.name, id: uuid.v4() });
-    res.status(201).end();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
+  const user = Object.values(users).find(
+		(u) => u.token === req.headers.authorization
+	);
+	if (user) {
+		if (!galleries[user.email]) {
+			galleries[user.email] = [];
+		}
+		const newGallery = { name: req.body.name, id: uuid.v4() };
+		galleries[user.email].push(newGallery);
+		res.status(201).send(newGallery);
+	} else {
+		res.status(401).send({ msg: "Unauthorized" });
+	}
 });
