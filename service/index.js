@@ -80,3 +80,24 @@ apiRouter.post('/galleries', (req, res) => {
 		res.status(401).send({ msg: "Unauthorized" });
 	}
 });
+
+// CheckName check if a gallery name is available
+apiRouter.get("/galleries/check-name", (req, res) => {
+	const user = Object.values(users).find(
+		(u) => u.token === req.headers.authorization
+	);
+	if (!user) {
+		return res.status(401).send({ msg: "Unauthorized" });
+	}
+
+	const galleryName = req.query.name;
+	if (galleries[user.email]) {
+		const exists = galleries[user.email].some(
+			(gallery) => gallery.name === galleryName
+		);
+		if (exists) {
+			return res.status(409).send({ msg: "Gallery name already exists" });
+		}
+	}
+	res.status(200).send({ msg: "Gallery name is available" });
+});

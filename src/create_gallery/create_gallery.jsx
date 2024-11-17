@@ -2,11 +2,37 @@ import React, { useState } from "react";
 import { MessageDialog } from "./messageDialog";
 
 export function Create_Gallery() {
-  const [galleryName, setGalleryName] = useState("");
+    const [galleryName, setGalleryName] = useState("");
 	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(null);
 
+  async function checkGalleryName() {
+		try {
+			const response = await fetch(
+				`/api/galleries/check-name?name=${encodeURIComponent(galleryName)}`,
+				{
+					method: "GET",
+					headers: {
+						Authorization: localStorage.getItem("userToken"),
+					},
+				}
+			);
+			if (response.status === 409) {
+				const body = await response.json();
+				setError(body.msg);
+				return false;
+			}
+			return true;
+		} catch (err) {
+			setError("An error occurred while checking the gallery name.");
+			return false;
+		}
+	}
+
 	async function handleCreateGallery() {
+    	const isAvailable = await checkGalleryName();
+		if (!isAvailable) return;
+		
 		try {
 			const response = await fetch("/api/galleries", {
 				method: "POST",
