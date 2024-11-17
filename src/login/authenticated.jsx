@@ -7,6 +7,17 @@ import "./authenticated.css";
 export function Authenticated(props) {
 	const navigate = useNavigate();
 
+	const [fact, setFact] = React.useState("Loading...");
+
+	React.useEffect(() => {
+		fetch("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en")
+			.then((response) => response.json())
+			.then((data) => {
+				setFact(data.text);
+			})
+			.catch(() => setFact("Failed to load a fact"));
+	}, []);
+
 	function logout() {
 		fetch(`/api/auth/logout`, {
 			method: "delete",
@@ -21,9 +32,9 @@ export function Authenticated(props) {
 	}
 
 	return (
-		<main className="d-flex justify-content-center align-items-center vh-100">
+		<div className="d-flex flex-column vh-100 justify-content-center align-items-center vh-100">
 			<div
-				className="card p-4 shadow-lg"
+				className="card p-4 shadow-lg mb-4"
 				style={{ maxWidth: "400px", width: "100%" }}
 			>
 				<h2 className="text-center mb-4">Welcome, {props.userName}</h2>
@@ -40,6 +51,12 @@ export function Authenticated(props) {
 					</Button>
 				</div>
 			</div>
-		</main>
+			<div
+				className="text-center mt-4"
+				style={{ maxWidth: "400px", height: "200px", overflowY: "auto" }}
+			>
+				<p style={{ fontSize: "1.25rem" }}>{fact}</p>
+			</div>
+		</div>
 	);
 }

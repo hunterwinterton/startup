@@ -8,6 +8,17 @@ export function Unauthenticated(props) {
 	const [password, setPassword] = React.useState("");
 	const [displayError, setDisplayError] = React.useState(null);
 
+	const [fact, setFact] = React.useState("Loading...");
+
+	React.useEffect(() => {
+		fetch("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en")
+			.then((response) => response.json())
+			.then((data) => {
+				setFact(data.text);
+			})
+			.catch(() => setFact("Failed to load a fact"));
+	}, []);
+
 	async function loginUser() {
 		loginOrCreate(`/api/auth/login`);
 	}
@@ -36,7 +47,7 @@ export function Unauthenticated(props) {
 	}
 
 	return (
-		<>
+		<div className="d-flex flex-column align-items-center">
 			<div
 				className="card p-4 shadow-lg"
 				style={{ maxWidth: "400px", width: "100%" }}
@@ -96,10 +107,17 @@ export function Unauthenticated(props) {
 				</form>
 			</div>
 
+			<div
+				className="text-center mt-4"
+				style={{ maxWidth: "400px", height: "200px", overflowY: "auto" }}
+			>
+				<p style={{ fontSize: "1.25rem" }}>{fact}</p>
+			</div>
+
 			<MessageDialog
 				message={displayError}
 				onHide={() => setDisplayError(null)}
 			/>
-		</>
+		</div>
 	);
 }

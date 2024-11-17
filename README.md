@@ -70,4 +70,14 @@ For this deliverable I converted my website to use React for flexibility. I also
   - [x] **database** - Stores whether or not the user is currently logged in, currently in local storage.
 - [x] **Router** - Routing between login and gallery components.
 
+## Service deliverable
+
+For this deliverable I added backend endpoints that creates users and galleries.
+
+- [x] **Node.js/Express HTTP service** - done!
+- [x] **Static middleware for frontend** - done!
+- [x] **Calls to third party endpoints** - There is a random fact displayed on the bottom of the homepage.
+- [x] **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for gallery info.
+- [x] **Frontend calls service endpoints** - Allows you to create a gallery on the frontend that saves to the backend. View galleries page is reactive to show all the users galleries.
+
 # [Notes](notes.md)
