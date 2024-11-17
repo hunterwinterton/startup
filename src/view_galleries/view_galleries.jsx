@@ -1,9 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { MessageDialog } from "../login/messageDialog";
 
 export function View_Galleries() {
 	return (
-		<main className="container my-md-4 my-lg-5">
+		<main className="container my-md-5" style={{ display: "flex", alignItems: "flex-start" }}>
 			<div>
 				<div>
 					<h2 className="text-center mb-4">Your Galleries</h2>

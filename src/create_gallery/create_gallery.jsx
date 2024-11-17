@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MessageDialog } from "./messageDialog";
+import { MessageDialog } from "../login/messageDialog";
 
 export function Create_Gallery() {
     const [galleryName, setGalleryName] = useState("");
@@ -32,7 +32,7 @@ export function Create_Gallery() {
 	async function handleCreateGallery() {
     	const isAvailable = await checkGalleryName();
 		if (!isAvailable) return;
-		
+
 		try {
 			const response = await fetch("/api/galleries", {
 				method: "POST",
