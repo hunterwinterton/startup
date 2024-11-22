@@ -1,7 +1,12 @@
 const path = require("path");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
 const express = require('express');
 const app = express();
 const uuid = require('uuid');
+const DB = require("./database.js");
+
+const authCookieName = "token";
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
@@ -11,25 +16,50 @@ app.listen(port, () => {
 
 app.use(express.json());
 
+app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, "public")));
 
 let users = {};
 let galleries = [];
 
-var apiRouter = express.Router();
+app.set("trust proxy", true);
+
+const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-apiRouter.post('/auth/create', async (req, res) => {
-  const user = users[req.body.email];
+// Authentication Middleware
+async function authenticate(req, res, next) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
   if (user) {
-    res.status(409).send({ msg: 'Existing user' });
+    req.user = user;
+    next();
   } else {
-    const user = { email: req.body.email, password: req.body.password, token: uuid.v4() };
-    users[user.email] = user;
-    galleries[user.email] = [];
-
-    res.send({ token: user.token });
+    res.status(401).send({ msg: 'Unauthorized' });
   }
+}
+
+// Set Authentication Cookie
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: false, // Set to true in production with HTTPS
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+
+// CreateAuth - Register a new user
+apiRouter.post("/auth/create", async (req, res) => {
+	const { email, password } = req.body;
+	if (await DB.getUser(email)) {
+		res.status(409).send({ msg: "Existing user" });
+	} else {
+		const user = await DB.createUser(email, password);
+		setAuthCookie(res, user.token);
+		galleries[user.email] = [];
+		res.send({ id: user._id, token: user.token });
+	}
 });
 
 // GetAuth login an existing user
@@ -52,6 +82,11 @@ apiRouter.delete('/auth/logout', (req, res) => {
     delete user.token;
   }
   res.status(204).end();
+});
+
+// Return the application's default page if the path is unknown
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
 });
 
 // GetGalleries get all galleries for a user
