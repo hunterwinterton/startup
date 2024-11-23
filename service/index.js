@@ -25,14 +25,14 @@ app.set("trust proxy", true);
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === "production";
 
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
 	res.cookie(authCookieName, authToken, {
 		secure: isProduction,
 		httpOnly: true,
-		sameSite: isProduction ? 'strict' : 'lax',
+		sameSite: isProduction ? "strict" : "lax",
 	});
 }
 

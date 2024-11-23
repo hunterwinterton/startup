@@ -1,7 +1,7 @@
 {
 	"name": "startup",
 	"version": "1.0.0",
-	"description": "## PhotoGalleries",
+	"description": "## Specification Deliverable",
 	"main": "index.js",
 	"scripts": {
 		"dev": "NODE_ENV=development vite",
@@ -16,7 +16,11 @@
 		"vite": "^5.4.10"
 	},
 	"dependencies": {
+		"bcrypt": "^5.1.1",
 		"bootstrap": "^5.3.3",
+		"cookie-parser": "^1.4.7",
+		"mongodb": "^6.11.0",
+		"multer": "^1.4.5-lts.1",
 		"react": "^18.3.1",
 		"react-bootstrap": "^2.10.5",
 		"react-dom": "^18.3.1",
