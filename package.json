@@ -4,9 +4,10 @@
 	"description": "## Specification Deliverable",
 	"main": "index.js",
 	"scripts": {
-		"dev": "vite",
+		"dev": "NODE_ENV=development vite",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"start": "NODE_ENV=production node service/index.js"
 	},
 	"keywords": [],
 	"author": "",

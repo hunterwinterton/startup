@@ -25,6 +25,17 @@ app.set("trust proxy", true);
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+	res.cookie(authCookieName, authToken, {
+		secure: isProduction,
+		httpOnly: true,
+		sameSite: isProduction ? 'strict' : 'lax',
+	});
+}
+
 // CreateAuth - Register a new user
 apiRouter.post("/auth/create", async (req, res) => {
 	if (await DB.getUser(req.body.email)) {
@@ -55,9 +66,9 @@ apiRouter.post("/auth/login", async (req, res) => {
 });
 
 // DeleteAuth token if stored in cookie
-apiRouter.delete('/auth/logout', (_req, res) => {
-  res.clearCookie(authCookieName);
-  res.status(204).end();
+apiRouter.delete("/auth/logout", (_req, res) => {
+	res.clearCookie(authCookieName);
+	res.status(204).end();
 });
 
 // secureApiRouter verifies credentials for endpoints
@@ -65,23 +76,14 @@ const secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
-  const authToken = req.cookies[authCookieName];
-  const user = await DB.getUserByToken(authToken);
-  if (user) {
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
+	const authToken = req.cookies[authCookieName];
+	const user = await DB.getUserByToken(authToken);
+	if (user) {
+		next();
+	} else {
+		res.status(401).send({ msg: "Unauthorized" });
+	}
 });
-
-// setAuthCookie in the HTTP response
-function setAuthCookie(res, authToken) {
-  res.cookie(authCookieName, authToken, {
-    secure: false,
-    httpOnly: true,
-    sameSite: 'lax',
-  });
-}
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
@@ -160,12 +162,15 @@ secureApiRouter.get("/galleries/:id", async (req, res) => {
 
 	if (user) {
 		const galleryId = req.params.id;
-		const gallery = await DB.getGalleryById(user.email, galleryId);
-
-		if (gallery) {
-			res.status(200).send(gallery);
-		} else {
-			res.status(404).send({ msg: "Gallery not found" });
+		try {
+			const gallery = await DB.getGalleryById(user.email, galleryId);
+			if (gallery) {
+				res.status(200).send(gallery);
+			} else {
+				res.status(404).send({ msg: "Gallery not found" });
+			}
+		} catch (err) {
+			res.status(500).send({ msg: "Internal Server Error" });
 		}
 	} else {
 		res.status(401).send({ msg: "Unauthorized" });

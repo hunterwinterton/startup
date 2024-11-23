@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
 const config = require("./dbConfig.json");
@@ -44,7 +44,7 @@ async function createUser(email, password) {
 
 // Get all galleries for a user
 async function getUserGalleries(email) {
-  return galleriesCollection.find({ email }).toArray();
+	return galleriesCollection.find({ email }).toArray();
 }
 
 // Add a new gallery for a user
