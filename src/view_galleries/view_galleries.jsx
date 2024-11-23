@@ -31,7 +31,12 @@ export function View_Galleries() {
 	return (
 		<main
 			className="container my-md-5"
-			style={{ display: "flex", alignItems: "flex-start" }}
+			style={{
+				display: "flex",
+				alignItems: "flex-start",
+				overflowY: "auto",
+				height: "100vh",
+			}}
 		>
 			<div>
 				<div>
