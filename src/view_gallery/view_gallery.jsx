@@ -12,9 +12,7 @@ export function View_Gallery() {
 			try {
 				const response = await fetch(`/api/galleries/${galleryId}`, {
 					method: "GET",
-					headers: {
-						Authorization: localStorage.getItem("userToken"),
-					},
+					credentials: "include",
 				});
 				if (response.ok) {
 					const data = await response.json();

@@ -20,9 +20,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
 
-let users = {};
-let galleries = [];
-
 app.set("trust proxy", true);
 
 const apiRouter = express.Router();
@@ -57,10 +54,10 @@ apiRouter.post("/auth/login", async (req, res) => {
 	res.status(401).send({ msg: "Unauthorized" });
 });
 
-// DeleteAuth logout a user
-apiRouter.delete("/auth/logout", (_req, res) => {
-	res.clearCookie(authCookieName);
-	res.status(204).end();
+// DeleteAuth token if stored in cookie
+apiRouter.delete('/auth/logout', (_req, res) => {
+  res.clearCookie(authCookieName);
+  res.status(204).end();
 });
 
 // secureApiRouter verifies credentials for endpoints
@@ -80,9 +77,9 @@ secureApiRouter.use(async (req, res, next) => {
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
-    secure: true,
+    secure: false,
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: 'lax',
   });
 }
 
@@ -92,28 +89,41 @@ app.use((_req, res) => {
 });
 
 // GetGalleries get all galleries for a user
-secureApiRouter.get("/galleries", (req, res) => {
-	const user = Object.values(users).find(
-		(u) => u.token === req.headers.authorization
-	);
+secureApiRouter.get("/galleries", async (req, res) => {
+	const authToken = req.cookies[authCookieName];
+	const user = await DB.getUserByToken(authToken);
+
 	if (user) {
-		res.send(galleries[user.email] || []);
+		const galleries = await DB.getUserGalleries(user.email);
+		res.send(galleries);
 	} else {
 		res.status(401).send({ msg: "Unauthorized" });
 	}
 });
 
-// PostGallery create a new gallery for a user
-secureApiRouter.post("/galleries", (req, res) => {
-	const user = Object.values(users).find(
-		(u) => u.token === req.headers.authorization
-	);
+secureApiRouter.post("/galleries", async (req, res) => {
+	const authToken = req.cookies[authCookieName];
+	const user = await DB.getUserByToken(authToken);
+
 	if (user) {
-		if (!galleries[user.email]) {
-			galleries[user.email] = [];
+		const galleryName = req.body.name;
+		if (!galleryName) {
+			res.status(400).send({ msg: "Gallery name is required" });
+			return;
 		}
-		const newGallery = { name: req.body.name, id: uuid.v4() };
-		galleries[user.email].push(newGallery);
+
+		// Check if gallery name exists for the user
+		const exists = await DB.checkGalleryName(user.email, galleryName);
+		if (exists) {
+			res.status(409).send({ msg: "Gallery name already exists" });
+			return;
+		}
+
+		// Create new gallery
+		const newGallery = await DB.addGallery(user.email, {
+			name: galleryName,
+			photos: [],
+		});
 		res.status(201).send(newGallery);
 	} else {
 		res.status(401).send({ msg: "Unauthorized" });
@@ -121,44 +131,43 @@ secureApiRouter.post("/galleries", (req, res) => {
 });
 
 // CheckName check if a gallery name is available
-secureApiRouter.get("/galleries/check-name", (req, res) => {
-	const user = Object.values(users).find(
-		(u) => u.token === req.headers.authorization
-	);
-	if (!user) {
-		return res.status(401).send({ msg: "Unauthorized" });
-	}
+secureApiRouter.get("/galleries/check-name", async (req, res) => {
+	const authToken = req.cookies[authCookieName];
+	const user = await DB.getUserByToken(authToken);
 
-	const galleryName = req.query.name;
-	if (galleries[user.email]) {
-		const exists = galleries[user.email].some(
-			(gallery) => gallery.name === galleryName
-		);
-		if (exists) {
-			return res.status(409).send({ msg: "Gallery name already exists" });
+	if (user) {
+		const galleryName = req.query.name;
+		if (!galleryName) {
+			res.status(400).send({ msg: "Gallery name is required" });
+			return;
 		}
+
+		const exists = await DB.checkGalleryName(user.email, galleryName);
+		if (exists) {
+			res.status(409).send({ msg: "Gallery name already exists" });
+		} else {
+			res.status(200).send({ msg: "Gallery name is available" });
+		}
+	} else {
+		res.status(401).send({ msg: "Unauthorized" });
 	}
-	res.status(200).send({ msg: "Gallery name is available" });
 });
 
 // GetGallery get a specific gallery for a user
-secureApiRouter.get("/galleries/:id", (req, res) => {
-	const user = Object.values(users).find(
-		(u) => u.token === req.headers.authorization
-	);
-	if (!user) {
-		return res.status(401).send({ msg: "Unauthorized" });
-	}
+secureApiRouter.get("/galleries/:id", async (req, res) => {
+	const authToken = req.cookies[authCookieName];
+	const user = await DB.getUserByToken(authToken);
 
-	const galleryId = req.params.id;
-	if (galleries[user.email]) {
-		const gallery = galleries[user.email].find((g) => g.id === galleryId);
+	if (user) {
+		const galleryId = req.params.id;
+		const gallery = await DB.getGalleryById(user.email, galleryId);
+
 		if (gallery) {
-			return res.status(200).send(gallery);
+			res.status(200).send(gallery);
 		} else {
-			return res.status(404).send({ msg: "Gallery not found" });
+			res.status(404).send({ msg: "Gallery not found" });
 		}
 	} else {
-		return res.status(404).send({ msg: "No galleries found for the user" });
+		res.status(401).send({ msg: "Unauthorized" });
 	}
 });

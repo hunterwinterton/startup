@@ -12,9 +12,7 @@ export function Create_Gallery() {
 				`/api/galleries/check-name?name=${encodeURIComponent(galleryName)}`,
 				{
 					method: "GET",
-					headers: {
-						Authorization: localStorage.getItem("userToken"),
-					},
+					credentials: "include",
 				}
 			);
 			if (response.status === 409) {
@@ -36,9 +34,9 @@ export function Create_Gallery() {
 		try {
 			const response = await fetch("/api/galleries", {
 				method: "POST",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: localStorage.getItem("userToken"),
 				},
 				body: JSON.stringify({ name: galleryName }),
 			});

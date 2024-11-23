@@ -11,9 +11,7 @@ export function View_Galleries() {
 			try {
 				const response = await fetch("/api/galleries", {
 					method: "GET",
-					headers: {
-						Authorization: localStorage.getItem("userToken"),
-					},
+					credentials: "include",
 				});
 				if (response.ok) {
 					const data = await response.json();
@@ -49,9 +47,9 @@ export function View_Galleries() {
 						</div>
 					)}
 					{galleries.map((gallery) => (
-						<div key={gallery.id} className="col">
+						<div key={gallery._id} className="col">
 							<NavLink
-								to={`/view/${gallery.id}`}
+								to={`/view/${gallery._id}`}
 								className="d-block"
 								style={{ textDecoration: "none" }}
 							>

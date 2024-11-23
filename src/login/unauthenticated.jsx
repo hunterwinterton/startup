@@ -36,10 +36,10 @@ export function Unauthenticated(props) {
 			},
 		});
 		if (response?.status === 200) {
-			const data = await response.json();
 			localStorage.setItem("userName", userName);
-			localStorage.setItem("userToken", data.token);
-			props.onLogin(userName, data.token);
+			//localStorage.setItem("userToken", data.token);
+			//props.onLogin(userName, data.token);
+			props.onLogin(userName);
 		} else {
 			const body = await response.json();
 			setDisplayError(`⚠ Error: ${body.msg}`);

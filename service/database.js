@@ -7,6 +7,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db("photogalleries");
 const userCollection = db.collection("user");
+const galleriesCollection = db.collection("galleries");
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -43,35 +44,31 @@ async function createUser(email, password) {
 
 // Get all galleries for a user
 async function getUserGalleries(email) {
-  await connectDB();
-  return await galleriesCollection.find({ email }).toArray();
+  return galleriesCollection.find({ email }).toArray();
 }
 
 // Add a new gallery for a user
 async function addGallery(email, gallery) {
-  await connectDB();
-  gallery.email = email; // Associate gallery with the user's email
-  const result = await galleriesCollection.insertOne(gallery);
-  return { id: result.insertedId, ...gallery };
+	gallery.email = email;
+	const result = await galleriesCollection.insertOne(gallery);
+	return { ...gallery, _id: result.insertedId };
 }
 
 // Get a specific gallery by ID for a user
 async function getGalleryById(email, galleryId) {
-  await connectDB();
-  return await galleriesCollection.findOne({
-    email,
-    _id: new ObjectId(galleryId),
-  });
+	return await galleriesCollection.findOne({
+		email,
+		_id: new ObjectId(galleryId),
+	});
 }
 
 // Check if a gallery name exists for a user
 async function checkGalleryName(email, galleryName) {
-  await connectDB();
-  const gallery = await galleriesCollection.findOne({
-    email,
-    name: galleryName,
-  });
-  return gallery !== null;
+	const gallery = await galleriesCollection.findOne({
+		email,
+		name: galleryName,
+	});
+	return gallery !== null;
 }
 
 module.exports = {
