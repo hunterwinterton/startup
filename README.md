@@ -80,4 +80,14 @@ For this deliverable I added backend endpoints that creates users and galleries.
 - [x] **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for gallery info.
 - [x] **Frontend calls service endpoints** - Allows you to create a gallery on the frontend that saves to the backend. View galleries page is reactive to show all the users galleries.
 
+## DB/Login deliverable
+
+For this deliverable I made user and gallery data persist in a database.
+
+- [x] **MongoDB Atlas database created** - done!
+- [x] **Stores data in MongoDB** - done!
+- [x] **User registration** - Creates a new account in the database.
+- [x] **Use MongoDB to store credentials** - Stores both users and their galleries.
+- [x] **Restricts functionality** - You cannot create or view galleries until you have logged in.
+
 # [Notes](notes.md)
