@@ -10,6 +10,11 @@ export default defineConfig({
 				changeOrigin: true,
 				secure: isProduction,
 			},
+			"/ws": {
+				target: "ws://localhost:3000",
+				changeOrigin: true,
+				ws: true,
+			},
 		},
 	},
 });

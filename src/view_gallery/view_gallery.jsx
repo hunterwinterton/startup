@@ -67,7 +67,8 @@ export function View_Gallery() {
 						</div>
 						<div className="d-flex justify-content-center my-4 button-container">
 							<button className="btn btn-primary me-2">Download Images</button>
-							<button className="btn btn-danger ms-2">Delete Gallery</button>
+							<button className="btn btn-danger me-2">Delete Gallery</button>
+							<button className="btn btn-primary me-2">Share Gallery</button>
 						</div>
 						<h2 className="text-center mb-4">Analytics</h2>
 						<div className="table-responsive">

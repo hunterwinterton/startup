@@ -6,14 +6,17 @@ const app = express();
 //const uuid = require("uuid");
 const DB = require("./database.js");
 const multer = require("multer");
+const { peerProxy } = require("./peerProxy.js");
 
 const authCookieName = "token";
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);
 
 const upload = multer({
 	storage: multer.diskStorage({
