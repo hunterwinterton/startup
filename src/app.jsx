@@ -70,7 +70,7 @@ function App() {
 					}
 					exact
 				/>
-				<Route path="/public" element={<Public_Gallery />} />
+				<Route path="/public/:galleryId" element={<Public_Gallery />} />
 				<Route path="/all" element={<View_Galleries />} />
 				<Route path="/view/:galleryId" element={<View_Gallery />} />
 				<Route path="/create" element={<Create_Gallery />} />

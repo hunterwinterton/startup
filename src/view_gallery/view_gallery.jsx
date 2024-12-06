@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MessageDialog } from "../login/messageDialog";
+import { NavLink } from "react-router-dom";
 
 export function View_Gallery() {
 	const [gallery, setGallery] = useState(null);
@@ -68,7 +69,13 @@ export function View_Gallery() {
 						<div className="d-flex justify-content-center my-4 button-container">
 							<button className="btn btn-primary me-2">Download Images</button>
 							<button className="btn btn-danger me-2">Delete Gallery</button>
-							<button className="btn btn-primary me-2">Share Gallery</button>
+							<NavLink
+								className="btn btn-primary me-2"
+								to={`/public/${galleryId}`}
+								target="_blank"
+							>
+								Share Gallery
+							</NavLink>
 						</div>
 						<h2 className="text-center mb-4">Analytics</h2>
 						<div className="table-responsive">
