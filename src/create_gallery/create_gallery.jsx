@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { MessageDialog } from "../login/messageDialog";
 
 export function Create_Gallery() {
-    const [galleryName, setGalleryName] = useState("");
+	const [galleryName, setGalleryName] = useState("");
 	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(null);
 
-  async function checkGalleryName() {
+	async function checkGalleryName() {
 		try {
 			const response = await fetch(
 				`/api/galleries/check-name?name=${encodeURIComponent(galleryName)}`,
@@ -28,7 +28,7 @@ export function Create_Gallery() {
 	}
 
 	async function handleCreateGallery() {
-    	const isAvailable = await checkGalleryName();
+		const isAvailable = await checkGalleryName();
 		if (!isAvailable) return;
 
 		try {
@@ -52,6 +52,26 @@ export function Create_Gallery() {
 		} catch (err) {
 			setError("An error occurred while creating the gallery.");
 			setSuccess(null);
+		}
+	}
+
+	async function uploadFile(fileInput) {
+		const file = fileInput.files[0];
+		if (file) {
+			const formData = new FormData();
+			formData.append("file", file);
+
+			const response = await fetch("/upload", {
+				method: "POST",
+				body: formData,
+			});
+
+			const data = await response.json();
+			if (response.ok) {
+				document.querySelector("#upload").src = `/file/${data.file}`;
+			} else {
+				alert(data.message);
+			}
 		}
 	}
 
@@ -96,6 +116,8 @@ export function Create_Gallery() {
 							type="file"
 							id="uploadPhotos"
 							className="form-control"
+							accept=".png, .jpeg, .jpg"
+							onChange="uploadFile(this)"
 							multiple
 						/>
 					</div>

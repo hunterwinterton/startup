@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 //const uuid = require("uuid");
 const DB = require("./database.js");
+const multer = require("multer");
 
 const authCookieName = "token";
 
@@ -12,6 +13,42 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
+});
+
+const upload = multer({
+	storage: multer.diskStorage({
+		destination: "uploads/",
+		filename: (req, file, cb) => {
+			const filetype = file.originalname.split(".").pop();
+			const id = Math.round(Math.random() * 1e9);
+			const filename = `${id}.${filetype}`;
+			cb(null, filename);
+		},
+	}),
+	limits: { fileSize: 20 * 1024 * 1024 },
+});
+
+app.post("/upload", upload.single("file"), (req, res) => {
+	if (req.file) {
+		res.send({
+			message: "Uploaded succeeded",
+			file: req.file.filename,
+		});
+	} else {
+		res.status(400).send({ message: "Upload failed" });
+	}
+});
+
+app.get("/file/:filename", (req, res) => {
+	res.sendFile(__dirname + `/uploads/${req.params.filename}`);
+});
+
+app.use((err, req, res, next) => {
+	if (err instanceof multer.MulterError) {
+		res.status(413).send({ message: err.message });
+	} else {
+		res.status(500).send({ message: err.message });
+	}
 });
 
 app.use(express.json());
