@@ -55,6 +55,9 @@ export function View_Gallery() {
 
 		// Cleanup on component unmount
 		return () => {
+			if (ws.readyState === WebSocket.OPEN) {
+				ws.send(JSON.stringify({ type: "left", galleryId }));
+			}
 			ws.close();
 		};
 	}, [galleryId]);
