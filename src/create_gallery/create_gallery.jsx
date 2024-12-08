@@ -117,7 +117,7 @@ export function Create_Gallery() {
 							id="uploadPhotos"
 							className="form-control"
 							accept=".png, .jpeg, .jpg"
-							onChange="uploadFile(this)"
+							onChange={(event) => uploadFile(event.target)}
 							multiple
 						/>
 					</div>

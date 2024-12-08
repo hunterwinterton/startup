@@ -17,26 +17,41 @@ function peerProxy(httpServer) {
 	let galleryViewers = {};
 
 	wss.on("connection", (ws) => {
-		const connection = { id: uuid.v4(), alive: true, ws: ws };
+		const connection = { id: uuid.v4(), alive: true, ws: ws, galleryId: null };
 		connections.push(connection);
 
 		// Forward messages to everyone except the sender
-		ws.on("message", function message(data) {
-			const message = JSON.parse(data);
-			if (message.type === "viewing") {
-				if (!galleryViewers[message.galleryId]) {
-					galleryViewers[message.galleryId] = 0;
-				}
-				galleryViewers[message.galleryId]++;
-				broadcastViewers(message.galleryId);
-			} else if (message.type === "left") {
-				if (galleryViewers[message.galleryId]) {
-					galleryViewers[message.galleryId]--;
-					if (galleryViewers[message.galleryId] < 0) {
+		ws.on("message", (data) => {
+			try {
+				const message = JSON.parse(data);
+				if (message.type === "viewing") {
+					if (!galleryViewers[message.galleryId]) {
 						galleryViewers[message.galleryId] = 0;
 					}
+					galleryViewers[message.galleryId]++;
+					console.log(
+						`Gallery ${message.galleryId} viewers:`,
+						galleryViewers[message.galleryId]
+					);
 					broadcastViewers(message.galleryId);
+				} else if (message.type === "left") {
+					if (galleryViewers[message.galleryId]) {
+						galleryViewers[message.galleryId]--;
+						if (galleryViewers[message.galleryId] <= 0) {
+							delete galleryViewers[message.galleryId];
+						} else {
+							broadcastViewers(message.galleryId);
+						}
+						console.log(
+							`Gallery ${message.galleryId} viewers:`,
+							galleryViewers[message.galleryId]
+						);
+					}
+				} else {
+					console.warn("Unknown message type received:", message.type);
 				}
+			} catch (err) {
+				console.error("Error processing WebSocket message:", err);
 			}
 		});
 
@@ -54,6 +69,16 @@ function peerProxy(httpServer) {
 			connection.alive = true;
 		});
 	});
+
+	// Broadcast viewer counts to all connections
+	function broadcastViewers(galleryId) {
+		const count = galleryViewers[galleryId] || 0;
+		const message = JSON.stringify({ type: "viewers", galleryId, count });
+
+		connections.forEach((conn) => {
+			conn.ws.send(message);
+		});
+	}
 
 	// Keep active connections alive
 	setInterval(() => {

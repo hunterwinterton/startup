@@ -38,7 +38,18 @@ export function Public_Gallery() {
 		};
 
 		ws.onmessage = (event) => {
-			console.log("WebSocket message received:", event.data);
+			try {
+				const message = JSON.parse(event.data);
+				if (message.type === "viewers" && message.galleryId === galleryId) {
+					console.log(
+						`Viewer count for gallery ${galleryId}: ${message.count}`
+					);
+				} else {
+					console.warn("Unexpected WebSocket message:", message);
+				}
+			} catch (err) {
+				console.error("Error parsing WebSocket message:", err);
+			}
 		};
 
 		ws.onerror = (error) => {
@@ -51,7 +62,9 @@ export function Public_Gallery() {
 
 		// Cleanup on component unmount
 		return () => {
-			ws.send(JSON.stringify({ type: "left", galleryId }));
+			if (ws.readyState === WebSocket.OPEN) {
+				ws.send(JSON.stringify({ type: "left", galleryId }));
+			}
 			ws.close();
 		};
 	}, [galleryId]);
