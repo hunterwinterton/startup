@@ -89,7 +89,7 @@ export function View_Galleries() {
 										{gallery.name}
 									</div>
 									<img
-										src="sample-img.jpg"
+										src="/sample-img.jpg"
 										className="img-fluid"
 										style={{
 											width: "100%",

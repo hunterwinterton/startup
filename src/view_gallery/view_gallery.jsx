@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 export function View_Gallery() {
 	const [gallery, setGallery] = useState(null);
 	const [error, setError] = useState(null);
+	const [viewers, setViewers] = useState(0);
 	const { galleryId } = useParams();
 
 	useEffect(() => {
@@ -28,6 +29,34 @@ export function View_Gallery() {
 		}
 
 		fetchGallery();
+
+		// WebSocket
+		const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+		const ws = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+		ws.onopen = () => {
+			console.log("WebSocket connected for view gallery.");
+		};
+
+		ws.onmessage = (event) => {
+			const message = JSON.parse(event.data);
+			if (message.type === "viewers" && message.galleryId === galleryId) {
+				setViewers(message.count);
+			}
+		};
+
+		ws.onerror = (error) => {
+			console.error("WebSocket error:", error);
+		};
+
+		ws.onclose = () => {
+			console.log("WebSocket connection closed for view gallery.");
+		};
+
+		// Cleanup on component unmount
+		return () => {
+			ws.close();
+		};
 	}, [galleryId]);
 
 	return (
@@ -71,7 +100,7 @@ export function View_Gallery() {
 							<button className="btn btn-danger me-2">Delete Gallery</button>
 							<NavLink
 								className="btn btn-primary me-2"
-								to={`/public/${galleryId}`}
+								to={`/share/${galleryId}`}
 								target="_blank"
 							>
 								Share Gallery
@@ -94,6 +123,7 @@ export function View_Gallery() {
 								</tbody>
 							</table>
 						</div>
+						<p style={{ fontSize: "1.25rem" }}>Currently Viewing: {viewers}</p>
 					</>
 				)}
 			</div>

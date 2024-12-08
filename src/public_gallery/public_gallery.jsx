@@ -27,6 +27,33 @@ export function Public_Gallery() {
 		}
 
 		fetchGallery();
+
+		// WebSocket
+		const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+		const ws = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+		ws.onopen = () => {
+			console.log("WebSocket connected for public gallery.");
+			ws.send(JSON.stringify({ type: "viewing", galleryId }));
+		};
+
+		ws.onmessage = (event) => {
+			console.log("WebSocket message received:", event.data);
+		};
+
+		ws.onerror = (error) => {
+			console.error("WebSocket error:", error);
+		};
+
+		ws.onclose = () => {
+			console.log("WebSocket connection closed for public gallery.");
+		};
+
+		// Cleanup on component unmount
+		return () => {
+			ws.send(JSON.stringify({ type: "left", galleryId }));
+			ws.close();
+		};
 	}, [galleryId]);
 
 	return (
@@ -44,13 +71,13 @@ export function Public_Gallery() {
 						<h2 className="text-center mb-4">{gallery.name}</h2>
 						<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 							<div className="col">
-								<img src="sample-img.jpg" className="img-fluid rounded" />
+								<img src="/sample-img.jpg" className="img-fluid rounded" />
 							</div>
 							<div className="col">
-								<img src="sample-img.jpg" className="img-fluid rounded" />
+								<img src="/sample-img.jpg" className="img-fluid rounded" />
 							</div>
 							<div className="col">
-								<img src="sample-img.jpg" className="img-fluid rounded" />
+								<img src="/sample-img.jpg" className="img-fluid rounded" />
 							</div>
 						</div>
 						<div className="d-flex justify-content-center my-4 button-container">

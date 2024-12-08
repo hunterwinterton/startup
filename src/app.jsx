@@ -23,7 +23,7 @@ function App() {
 			<header className="sticky-top bg-light p-3">
 				<div className="d-flex align-items-center">
 					<div className="d-flex align-items-center">
-						<img className="me-2" src="logo.png" width="50em" />
+						<img className="me-2" src="/logo.png" width="50em" />
 						<h1 className="mb-0 text-gray">
 							Photo Galleries<sup>&reg;</sup>
 						</h1>
@@ -70,7 +70,7 @@ function App() {
 					}
 					exact
 				/>
-				<Route path="/public/:galleryId" element={<Public_Gallery />} />
+				<Route path="/share/:galleryId" element={<Public_Gallery />} />
 				<Route path="/all" element={<View_Galleries />} />
 				<Route path="/view/:galleryId" element={<View_Gallery />} />
 				<Route path="/create" element={<Create_Gallery />} />

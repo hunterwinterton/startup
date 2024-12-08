@@ -10,13 +10,9 @@ const { peerProxy } = require("./peerProxy.js");
 
 const authCookieName = "token";
 
+app.use(express.static(path.join(__dirname, "public")));
+
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
-
-const httpService = app.listen(port, () => {
-	console.log(`Listening on port ${port}`);
-});
-
-peerProxy(httpService);
 
 const upload = multer({
 	storage: multer.diskStorage({
@@ -57,8 +53,6 @@ app.use((err, req, res, next) => {
 app.use(express.json());
 
 app.use(cookieParser());
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.set("trust proxy", true);
 
@@ -127,7 +121,7 @@ secureApiRouter.use(async (req, res, next) => {
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
-	res.sendFile("index.html", { root: "public" });
+	res.sendFile("index.html", { root: path.join(__dirname, "public") });
 });
 
 // GetGalleries get all galleries for a user
@@ -216,3 +210,9 @@ secureApiRouter.get("/galleries/:id", async (req, res) => {
 		res.status(401).send({ msg: "Unauthorized" });
 	}
 });
+
+const httpService = app.listen(port, () => {
+	console.log(`Listening on port ${port}`);
+});
+
+peerProxy(httpService);
