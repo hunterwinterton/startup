@@ -90,4 +90,13 @@ For this deliverable I made user and gallery data persist in a database.
 - [x] **Use MongoDB to store credentials** - Stores both users and their galleries.
 - [x] **Restricts functionality** - You cannot create or view galleries until you have logged in.
 
+## WebSocket deliverable
+
+For this deliverable I used webSocket to update the viewers of a shared gallery page in realtime.
+
+- [x] **Backend listens for WebSocket connection** - done!
+- [x] **Frontend makes WebSocket connection** - done!
+- [x] **Data sent over WebSocket connection** - done!
+- [x] **WebSocket data displayed** - The amount of people viewing a public gallery is shown on the view gallery page. There are a few minor bugs, such as it goes to 0 if you reload.
+
 # [Notes](notes.md)
